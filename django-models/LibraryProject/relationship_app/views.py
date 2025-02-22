@@ -6,7 +6,7 @@ from .models import Library
 def book_list_view(request):
     """View to list all books with their authors."""
     books = Book.objects.all()
-    return render(request, "relationship_app/book_list.html", {"books": books})
+    return render(request, "relationship_app/list_books.htm", {"books": books})
 
 class LibraryDetailView(DetailView):
     """View to display a library's details and its books."""
