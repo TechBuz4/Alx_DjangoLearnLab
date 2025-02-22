@@ -1,12 +1,13 @@
-from django.shortcuts import render
 from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
-from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseForbidden
 from .models import UserProfile
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 
@@ -44,7 +45,7 @@ def login_view(request):
             return redirect("home")
     else:
         form = AuthenticationForm()
-    return render(request, "authentication/login.html", {"form": form})
+    return render(request, "relationship_app/login.html", {"form": form})
 
 # User Logout View
 def logout_view(request):
