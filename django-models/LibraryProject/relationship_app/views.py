@@ -52,3 +52,25 @@ def logout_view(request):
     logout(request)
     return redirect("login")  # Redirect to login page after logout
 
+#admin
+def is_admin(user):
+    return user.is_authenticated and user.userprofile.role == 'Admin'
+
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    return render(request, 'admin_dashboard.html')
+#librarian
+def is_librarian(user):
+    return user.is_authenticated and user.userprofile.role == 'Librarian'
+
+@user_passes_test(is_librarian)
+def librarian_dashboard(request):
+    return render(request, 'librarian_dashboard.html')
+
+#member
+def is_member(user):
+    return user.is_authenticated and user.userprofile.role == 'Member'
+
+@user_passes_test(is_member)
+def member_dashboard(request):
+    return render(request, 'member_dashboard.html')
