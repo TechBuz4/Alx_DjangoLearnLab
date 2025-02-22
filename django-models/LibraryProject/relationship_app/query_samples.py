@@ -17,12 +17,10 @@ def get_books_in_library(library_name):
     """Returns all books in a specific library."""
     try:
         library = Library.objects.get(name=library_name)
-        print(f"Books in {library_name}:")
-        for book in books_in_library:
-            print(book.title)
-        return list(library.books.all())
+        librarian = Librarian.objects.get(library=library)
+        print(f"The librarian for {library_name} is {librarian.name}")
     except Library.DoesNotExist:
-        return []
+        return "Library does not exist"
     
 
 #Retrieve the librarian for a library.
