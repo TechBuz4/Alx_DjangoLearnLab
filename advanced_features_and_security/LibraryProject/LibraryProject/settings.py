@@ -135,8 +135,10 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 CSRF_COOKIE_SECURE = True   # Requires HTTPS in production
 SESSION_COOKIE_SECURE = True  # Requires HTTPS in production
 
-# Additional security settings you can add
 SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (if behind SSL)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # Allowed Hosts
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
