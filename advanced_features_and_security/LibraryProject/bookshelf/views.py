@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 from .models import Book
 from .forms import BookForm
+from .forms import ExampleForm
+
 
 def search_books(request):
     form = ExampleForm(request.GET)
