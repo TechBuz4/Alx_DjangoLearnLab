@@ -125,3 +125,29 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Security Headers
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Cookie Security
+CSRF_COOKIE_SECURE = True   # Requires HTTPS in production
+SESSION_COOKIE_SECURE = True  # Requires HTTPS in production
+
+# Additional security settings you can add
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (if behind SSL)
+
+# Allowed Hosts
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+
+# CSP Header via django-csp (recommended)
+INSTALLED_APPS += ['csp']
+
+CSP_DEFAULT_SRC = ["'self'"]
+CSP_SCRIPT_SRC = ["'self'", 'https://trusted-scripts.com']
+CSP_STYLE_SRC = ["'self'", 'https://trusted-styles.com']
+
+MIDDLEWARE += [
+    'csp.middleware.CSPMiddleware',
+]
