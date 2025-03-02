@@ -6,6 +6,15 @@ from django.http import HttpResponseForbidden
 from .models import Book
 from .forms import BookForm
 
+def search_books(request):
+    form = ExampleForm(request.GET)
+    books = []
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        books = Book.objects.filter(title__icontains=query)  # Safe query using ORM
+    return render(request, 'bookshelf/search_results.html', {'form': form, 'books': books})
+
+
 @permission_required('app_name.can_view', raise_exception=True)
 def book_list(request):
     books = Book.objects.all()
