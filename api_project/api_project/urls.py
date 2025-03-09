@@ -19,4 +19,8 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('books/', BookList.as_view(), name='book-list'),
+    path('api/', include('api.urls')),  # Includes all URLs from the api app
+
+
 ]
