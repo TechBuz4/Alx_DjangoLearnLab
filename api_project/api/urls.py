@@ -17,10 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+# Create a router and register the ViewSet
+router = DefaultRouter()
+router.register(r'books_all', BookViewSet, basename='book_all')
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('books/', BookList.as_view(), name='book-list'),
-    path('api/', include('api.urls')),  # Includes all URLs from the api app
-
-
+    path('', include(router.urls)),  # Include all auto-generated routes from the router
 ]
