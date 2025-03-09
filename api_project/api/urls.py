@@ -23,4 +23,6 @@ router.register(r'books_all', BookViewSet, basename='book_all')
 
 urlpatterns = [
     path('', include(router.urls)),  # Include all auto-generated routes from the router
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+
 ]
