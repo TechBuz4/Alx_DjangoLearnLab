@@ -8,6 +8,7 @@ from api.views import (
 )
 
 urlpatterns = [
+    path('', BookGenericAPIView.as_view(), name='book-generic-api'),
     path('books/', BookListView.as_view(), name='book-list'),  # List all books
     path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),  # Get a single book
     path('books/create/', BookCreateView.as_view(), name='book-create'),  # Create a book
