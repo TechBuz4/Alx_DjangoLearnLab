@@ -1,18 +1,16 @@
-from django.contrib import admin
 from django.urls import path
 from api.views import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView
+    BookListView,
+    BookDetailView,
+    BookCreateView,
+    BookUpdateView,
+    BookDeleteView
 )
 
 urlpatterns = [
-    path('', BookGenericAPIView.as_view(), name='book-generic-api'),
-    path('books/', ListView.as_view(), name='book-list'),
-    path('books/<int:pk>/', DetailView.as_view(), name='book-detail'),
-    path('books/create/', CreateView.as_view(), name='book-create'),
-    path('books/<int:pk>/update/', UpdateView.as_view(), name='book-update'),
-    path('books/<int:pk>/delete/', DeleteView.as_view(), name='book-delete'),
+    path('books/', BookListView.as_view(), name='book-list'),  # List all books
+    path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),  # Get a single book
+    path('books/create/', BookCreateView.as_view(), name='book-create'),  # Create a book
+    path('books/<int:pk>/update/', BookUpdateView.as_view(), name='book-update'),  # Update a book
+    path('books/<int:pk>/delete/', BookDeleteView.as_view(), name='book-delete'),  # Delete a book
 ]
