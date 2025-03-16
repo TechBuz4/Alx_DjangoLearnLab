@@ -8,6 +8,8 @@ from api.views import (
 )
 
 urlpatterns = [
+    path('admin/', admin.site.urls),  # Admin panel
+    path('api/', include('api.urls')),
     path('', BookGenericAPIView.as_view(), name='book-generic-api'),
     path('books/', BookListView.as_view(), name='book-list'),  # List all books
     path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),  # Get a single book
