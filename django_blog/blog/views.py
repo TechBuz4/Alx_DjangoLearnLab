@@ -9,6 +9,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from .models import Post, Comment
 
+
+from django.db.models import Q
+from django.shortcuts import render
+from .models import Post, Tag
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -130,3 +134,15 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.id})
+    
+
+
+def search_posts(request):
+    query = request.GET.get('q', '')
+    posts = Post.objects.filter(
+        Q(title__icontains=query) | Q(content__icontains=query) |
+        Q(tags__name__icontains=query)
+    ).distinct()
+
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+

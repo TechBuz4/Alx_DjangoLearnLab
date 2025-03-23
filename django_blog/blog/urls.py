@@ -4,7 +4,8 @@ from django.contrib.auth import views as auth_views
 from .views import (PostListView, 
                     PostDetailView, PostCreateView, PostUpdateView,
                       PostDeleteView, CommentCreateView, CommentUpdateView,
-                        CommentDeleteView)
+                        CommentDeleteView,
+                        search_posts, posts_by_tag)
 
 
 urlpatterns = [
@@ -19,8 +20,9 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),  # Edit post
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Delete post
     path('post/<int:post_id>/comment/new/', CommentCreateView.as_view(), name='comment-create'),
-     path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),
     path('comment/<int:pk>/delete/',CommentDeleteView.as_view(), name='comment-delete'),
     path('post/<int:pk>/comments/new/', CommentCreateView.as_view(), name='comment-create'),
-    #path('search/', views.search, name='search'),
+    path('search/', search_posts, name='search'),
+    path('tags/<str:tag_name>/', posts_by_tag, name='posts_by_tag'),
 ]
