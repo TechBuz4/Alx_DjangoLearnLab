@@ -1,7 +1,10 @@
 from django.urls import path
 from .views import register_view, login_view, logout_view, profile_view,profile_update_view
 from django.contrib.auth import views as auth_views
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, CommentCreateView, CommentUpdateView, CommentDeleteView
+from .views import (PostListView, 
+                    PostDetailView, PostCreateView, PostUpdateView,
+                      PostDeleteView, CommentCreateView, CommentUpdateView,
+                        CommentDeleteView)
 
 
 urlpatterns = [
