@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User, Post, Comment, Tag
+from django.contrib.auth.models import User
+from .models import Post, Comment, Tag
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -14,7 +15,6 @@ class ProfileUpdateForm(forms.ModelForm):
         model = User
         fields = ["username", "email"]
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -25,9 +25,10 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']  # add tags field
+        fields = ['title', 'content', 'tags']
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
-        # Add validation for tags if needed
+        if any(tag.name.isdigit() for tag in tags):  # Example validation
+            raise forms.ValidationError("Tags cannot contain numbers.")
         return tags
