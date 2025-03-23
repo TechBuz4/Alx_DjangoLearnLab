@@ -1,11 +1,22 @@
-{% extends "base.html" %}
-{% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <small>By {{ post.author }} on {{ post.created_at }}</small>
-    
-    {% if user == post.author %}
-        <a href="{% url 'post-update' post.id %}">Edit</a>
-        <a href="{% url 'post-delete' post.id %}">Delete</a>
-    {% endif %}
-{% endblock %}
+<h3>Comments</h3>
+{% if user.is_authenticated %}
+    <form action="{% url 'comment-create' post.id %}" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to add a comment.</p>
+{% endif %}
+
+<ul>
+    {% for comment in post.comments.all %}
+        <li>
+            <strong>{{ comment.author }}</strong>: {{ comment.content }}
+            {% if comment.author == user %}
+                <a href="{% url 'comment-update' comment.id %}">Edit</a>
+                <a href="{% url 'comment-delete' comment.id %}">Delete</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
