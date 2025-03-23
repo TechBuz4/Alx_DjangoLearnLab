@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Post, Comment, Tag
+from taggit.forms import TagWidget  # Import TagWidget
+from taggit.managers import TaggableManager
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -21,14 +24,9 @@ class CommentForm(forms.ModelForm):
         fields = ['content']
 
 class PostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False)
-
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
-
-    def clean_tags(self):
-        tags = self.cleaned_data.get('tags')
-        if any(tag.name.isdigit() for tag in tags):  # Example validation
-            raise forms.ValidationError("Tags cannot contain numbers.")
-        return tags
+        widgets = {
+            'tags': TagWidget(),
+        }
